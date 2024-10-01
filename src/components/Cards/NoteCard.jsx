@@ -9,9 +9,9 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
       {/* Note Contents */}
       <div className="note-content-container">
         <div className='flex justify-between'>
-          <div>
+          <div className=''>
+            <span className='text-base font-medium text-slate-500'>{moment(date).format("Do MMM YYYY")}</span>
             <h6 className='text-sm font-medium'>{title}</h6>
-            <span className='text-sm text-slate-500'>{moment(date).format("Do MMM YYYY")}</span>
           </div>
           <MdOutlinePushPin
             size={24}
