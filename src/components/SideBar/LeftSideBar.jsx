@@ -1,153 +1,79 @@
 import React, { useState } from 'react';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-const items = [
-  {
-    key: '1',
-    icon: <MailOutlined />,
-    label: 'Navigation One',
-    children: [
-      {
-        key: '11',
-        label: 'Option 1',
-      },
-      {
-        key: '12',
-        label: 'Option 2',
-      },
-      {
-        key: '13',
-        label: 'Option 3',
-      },
-      {
-        key: '14',
-        label: 'Option 4',
-      },
-    ],
-  },
-  {
-    key: '2',
-    icon: <AppstoreOutlined />,
-    label: 'Navigation Two',
-    children: [
-      {
-        key: '21',
-        label: 'Option 1',
-      },
-      {
-        key: '22',
-        label: 'Option 2',
-      },
-      {
-        key: '23',
-        label: 'Submenu',
-        children: [
-          {
-            key: '231',
-            label: 'Option 1',
-          },
-          {
-            key: '232',
-            label: 'Option 2',
-          },
-          {
-            key: '233',
-            label: 'Option 3',
-          },
-        ],
-      },
-      {
-        key: '24',
-        label: 'Submenu 2',
-        children: [
-          {
-            key: '241',
-            label: 'Option 1',
-          },
-          {
-            key: '242',
-            label: 'Option 2',
-          },
-          {
-            key: '243',
-            label: 'Option 3',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: '3',
-    icon: <SettingOutlined />,
-    label: 'Navigation Three',
-    children: [
-      {
-        key: '31',
-        label: 'Option 1',
-      },
-      {
-        key: '32',
-        label: 'Option 2',
-      },
-      {
-        key: '33',
-        label: 'Option 3',
-      },
-      {
-        key: '34',
-        label: 'Option 4',
-      },
-    ],
-  },
-];
-const getLevelKeys = (items1) => {
-  const key = {};
-  const func = (items2, level = 1) => {
-    items2.forEach((item) => {
-      if (item.key) {
-        key[item.key] = level;
-      }
-      if (item.children) {
-        func(item.children, level + 1);
-      }
-    });
-  };
-  func(items1);
-  return key;
-};
-const levelKeys = getLevelKeys(items);
+import { FaRegFolder, FaRegStar } from 'react-icons/fa6';
+import { MdOutlineStickyNote2 } from 'react-icons/md';
+import { TiDownloadOutline } from "react-icons/ti";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { IoPricetags } from "react-icons/io5";
+import SearchTag from '../Search/SearchTag';
+
 const LeftSideBar = () => {
-  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
-  const onOpenChange = (openKeys) => {
-    const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
-    // open
-    if (currentOpenKey !== undefined) {
-      const repeatIndex = openKeys
-        .filter((key) => key !== currentOpenKey)
-        .findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey]);
-      setStateOpenKeys(
-        openKeys
-          // remove repeat key
-          .filter((_, index) => index !== repeatIndex)
-          // remove current level all child
-          .filter((key) => levelKeys[key] <= levelKeys[currentOpenKey]),
-      );
-    } else {
-      // close
-      setStateOpenKeys(openKeys);
-    }
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSideBar = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={['231']}
-      openKeys={stateOpenKeys}
-      onOpenChange={onOpenChange}
-      style={{
-        width: 256,
-      }}
-      items={items}
-    />
-  );
+    <div className='sidebar-container w-64 h-full bg-[#EEEFF1]'>
+      <SearchTag
+        
+      ></SearchTag>
+      <div className='sidebar-heading'>
+
+      </div>
+      <div className='sidebar-items-body'>
+        <ul>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <MdOutlineStickyNote2
+              size={20}
+              className='mr-2'
+              style={{ color: "0A6DD6" }}
+            />
+            <span className='text-14px font-medium'>Notes</span>
+          </li>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <FaRegFolder
+              size={20}
+              className='mr-2'
+              style={{ color: "72767E" }}
+            />
+            <span className='text-14px font-medium'>Files</span>
+          </li>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <FaRegStar
+              size={20}
+              className='mr-2'
+              style={{ color: "EBAD00" }}
+            />
+            <span className='text-14px font-medium'>Starred</span>
+          </li>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <TiDownloadOutline
+              size={20}
+              className='mr-2'
+              style={{ color: "800068" }}
+            />
+            <span className='text-14px font-medium'>Archived</span>
+          </li>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <FaRegTrashAlt
+              size={20}
+              className='mr-2'
+              style={{ color: "0A6DD6" }}
+            />
+            <span className='text-14px font-medium'>Trash</span>
+          </li>
+          <li className='w-full h-8 flex items-center px-4 py-2 hover:bg-[#FDFDFD] cursor-pointer'>
+            <IoPricetags
+              size={20}
+              className='mr-2'
+              style={{ color: "350053" }}
+            />
+            <span className='text-14px font-medium'>Untagged</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  )
 };
 export default LeftSideBar;
