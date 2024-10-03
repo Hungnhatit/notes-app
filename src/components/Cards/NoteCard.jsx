@@ -15,7 +15,7 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
           </div>
           <MdOutlinePushPin
             size={24}
-            className={`icon-btn ${isPinned ? "text-primary" : "text-slate-300"} hover:rotate-45 transition-all duration-200`}
+            className={`icon-btn ${isPinned ? "text-primary rotate-45" : "text-slate-300"} hover:rotate-45 transition-all duration-200`}
             onClick={onPinNote}
           />
         </div>
