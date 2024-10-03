@@ -4,10 +4,10 @@ import TagInput from '../../components/Input/TagInput';
 import { MdClose } from 'react-icons/md';
 import axiosInstance from '../../utils/axiosInstance';
 
-const AddEditNote = ({ noteData, getAllNotes, type, onClose }) => {
-  const [title, setTitle] = useState(noteData.title || "");
-  const [content, setContent] = useState(noteData.content || "");
-  const [tags, setTags] = useState(noteData.tags || []);
+const AddEditNote = ({ noteData, getAllNotes, type, onClose, showToast }) => {
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || []);
   const [error, setError] = useState(null);
 
   const addNewNote = async () => {
@@ -19,6 +19,7 @@ const AddEditNote = ({ noteData, getAllNotes, type, onClose }) => {
       });
 
       if (res.data && res.data.note) {
+        showToast("Note has been added successfully!");
         getAllNotes();
         onClose();
       }
@@ -32,7 +33,25 @@ const AddEditNote = ({ noteData, getAllNotes, type, onClose }) => {
     }
   }
 
-  const editNote = async () => { }
+  const editNote = async () => {
+    const noteId = noteData._id;
+    try {
+      const res = await axiosInstance.put("/edit-note/" + noteId, {
+        title, content, tags
+      });
+
+      if (res.data && res.data.editNote) {
+        showToast("Note has been updated successfully!")
+        getAllNotes();
+        onClose();
+      }
+      console.log(res)
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message)
+      }
+    }
+  }
 
   const handleAddNote = () => {
     if (!title) {
