@@ -6,6 +6,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { IoPricetags } from "react-icons/io5";
 import { RiMenuFold2Fill, RiMenuUnfold2Fill } from 'react-icons/ri';
 import './LeftSideBar.css';  // CSS riêng cho sidebar
+import { Link } from 'react-router-dom';
 
 const LeftSideBar = () => {
   const [isOpen, setIsOpen] = useState(true);  // Mở sidebar mặc định
@@ -35,7 +36,7 @@ const LeftSideBar = () => {
     <div className={`sidebar-container ${isOpen ? "w-64" : "w-16"} h-full bg-[#EEEFF1] transition-all duration-300 relative`}>
       <div className='flex items-center justify-between px-5 mt-4 mb-4'>
         <h2 className={`text-2xl font-semibold text-black transition-opacity duration-300 ${isOpen ? "" : " hidden"}`}>
-          OneWork
+          <Link to="/">OneWork</Link>
         </h2>
         <button
           onClick={toggleSideBar}
