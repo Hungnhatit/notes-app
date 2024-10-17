@@ -147,10 +147,10 @@ const Home = () => {
     <div className='h-screen'>
       <div className='w-full h-full flex'>
         <LeftSideBar></LeftSideBar>
-        
-        <div>
+
+        <div className='w-full'>
           <NavBar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch}></NavBar>
-          {allNotes.length > 0 ? (<div className='w-full h-1/2 grid 2xl:grid-cols-4 2xl:px-8 gap-4 mt-8 xxs:grid-cols-1 xxs:px-2 sm:grid-cols-3'>
+          {allNotes.length > 0 ? (<div className='w-full grid 2xl:grid-cols-4 2xl:px-8 gap-4 mt-8 xxs:grid-cols-1 xxs:px-2 sm:grid-cols-3'>
             {allNotes.map((item, index) => (
               // Note Card Item
               <NoteCard
