@@ -13,11 +13,15 @@ const NoteCard = ({ title, date, content, tags, isPinned, onEdit, onDelete, onPi
             <span className='text-base font-medium text-slate-500'>{moment(date).format("Do MMM YYYY")}</span>
             <h6 className='text-sm font-medium'>{title}</h6>
           </div>
-          <MdOutlinePushPin
-            size={24}
-            className={`icon-btn ${isPinned ? "text-primary rotate-45" : "text-slate-300"} hover:rotate-45 transition-all duration-200`}
-            onClick={onPinNote}
-          />
+          <span
+            className=''>
+
+            <MdOutlinePushPin
+              size={24}
+              className={`icon-btn ${isPinned ? "text-primary rotate-45" : "text-slate-300"} hover:rotate-45 transition-all duration-200`}
+              onClick={onPinNote}
+            />
+          </span>
         </div>
 
         <p className='text-xs text-slate-600 mt-2'>{content?.slice(0, 60)}</p>
